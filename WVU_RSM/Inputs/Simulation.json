@@ -1,0 +1,30 @@
+
+
+{
+    "Number of Ensemble Points":                     1000,
+    "Number of Processors to be used":               200,
+    "Component Rotation (1=No,2=Yes)":               2,
+    "Gas Surface Interaction Model (1=DRIA,2=CLL)":  2,
+    "Magnitude of Bulk Velocity":                    [5500.0,9500.0],
+    "Satellite Surface Temperature":                 [100,500],
+    "Atmospheric Translational Temperature":         [200,2000],
+    "Specular Fraction":                             [0.0,1.0],
+    "Energy Accommodation Coefficient" :             [0.0,1.0],
+    "Normal Energy Accommodation Coefficient":       [0.0,1.0],
+    "Tangential Momentum Accommodation Coefficient": [0.0,1.0],
+    "Yaw Angle Orientation":                         [-10.0,10.0],
+    "Yaw Angle Resolution":                          0.1,
+    "Pitch Angle Orientation":                       [-10.0,10.0],
+    "Pitch Angle Resolution":                        0.1,
+    "Component Rotation Min/Max":                    [0.0,0.0,
+                                                     0.0,20.0,
+                                                     0.0,20.0]
+}
+
+
+
+
+
+
+
+

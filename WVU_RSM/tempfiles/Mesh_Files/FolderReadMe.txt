@@ -1,0 +1,1 @@
+Folder where STL files are passed to tpm.c. Files in here should be deleted periodically. 

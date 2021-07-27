@@ -1,0 +1,4 @@
+Object Name                                               # RotationTest
+Gas Surface Interaction Model                             # 2
+Species Mole Fractions : X = [O, O2, N, N2, He, H]	   	# 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000
+Component Rotation Flag                                   # 2

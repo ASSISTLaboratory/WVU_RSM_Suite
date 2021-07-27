@@ -1,0 +1,1 @@
+Folder where various plots from regression model creation are output.  

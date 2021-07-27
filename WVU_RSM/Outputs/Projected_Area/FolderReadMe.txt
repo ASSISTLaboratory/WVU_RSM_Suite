@@ -1,0 +1,1 @@
+Folder where projected area files from tpm.c are placed. Also area calculations from model evaluation are read here. Area_total contains all cases of area calculation

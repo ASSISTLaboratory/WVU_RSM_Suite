@@ -1,0 +1,1 @@
+30 regression model outputs will be placed in this folder upon the creation of the model after simulations. 

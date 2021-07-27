@@ -1,0 +1,34 @@
+
+
+
+
+
+Example_CubeSat_GP_reg_H_matern2.pkl   Example_CubeSat_x_train_O2_std.pkl
+Example_CubeSat_GP_reg_He_matern2.pkl  Example_CubeSat_x_train_O_mean.pkl
+Example_CubeSat_GP_reg_N2_matern2.pkl  Example_CubeSat_x_train_O_std.pkl
+Example_CubeSat_GP_reg_N_matern2.pkl   Example_CubeSat_y_train_H_mean.pkl
+Example_CubeSat_GP_reg_O2_matern2.pkl  Example_CubeSat_y_train_H_std.pkl
+Example_CubeSat_GP_reg_O_matern2.pkl   Example_CubeSat_y_train_He_mean.pkl
+Example_CubeSat_x_train_H_mean.pkl     Example_CubeSat_y_train_He_std.pkl
+Example_CubeSat_x_train_H_std.pkl      Example_CubeSat_y_train_N2_mean.pkl
+Example_CubeSat_x_train_He_mean.pkl    Example_CubeSat_y_train_N2_std.pkl
+Example_CubeSat_x_train_He_std.pkl     Example_CubeSat_y_train_N_mean.pkl
+Example_CubeSat_x_train_N2_mean.pkl    Example_CubeSat_y_train_N_std.pkl
+Example_CubeSat_x_train_N2_std.pkl     Example_CubeSat_y_train_O2_mean.pkl
+Example_CubeSat_x_train_N_mean.pkl     Example_CubeSat_y_train_O2_std.pkl
+Example_CubeSat_x_train_N_std.pkl      Example_CubeSat_y_train_O_mean.pkl
+Example_CubeSat_x_train_O2_mean.pkl    Example_CubeSat_y_train_O_std.pkl
+
+
+
+
+
+
+
+
+
+
+0.000 16.774 18.583
+0.000 7.482 32.258
+0.000 3.520 27.762
+0.000 15.480 8.615

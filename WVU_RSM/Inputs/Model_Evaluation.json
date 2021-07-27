@@ -1,0 +1,28 @@
+
+
+
+{
+    "Model Name":                                   "Regression_Model_Prefix",
+    "Gas Surface Interaction Model (1=DRIA,2=CLL)":  1,
+    "Adsorption Model (1=Freundlich,2=Langmuir)":    2,
+    "Component Rotation (1=No,2=Yes)":               2,
+    "Surface Particle Mass (kg)":                    3.135097e-26
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
