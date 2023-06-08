@@ -1,38 +1,38 @@
 TEST PARTICLE MODEL
 ===================
 
-Calculates the drag coefficient of a given object (from a .stl mesh file) using the test particle method 
+Calculates the drag coefficient of a given object (from a .stl mesh file) using the test particle method
 
 INPUT
------ 
+-----
 
- * GS_MODEL: Specifies gas-surface interaction model 
- 	0 = Maxwell's Model 
- 	1 = Diffuse Reflection with Incomplete Accommodation (DRIA) 
- 	2 = Cercignani-Lampis-Lord (CLL) 
+ * GS_MODEL: Specifies gas-surface interaction model
+ 	0 = Maxwell's Model
+ 	1 = Diffuse Reflection with Incomplete Accommodation (DRIA)
+ 	2 = Cercignani-Lampis-Lord (CLL)
 
- * Ux, Uy, Uz = satellite speed relative to atmosphere [m/s] 
+ * Ux, Uy, Uz = satellite speed relative to atmosphere [m/s]
 
- * Ts = satellite surface temperature [K] 
+ * Ts = satellite surface temperature [K]
 
- * Ta = atmospheric translational temperature [K] 
+ * Ta = atmospheric translational temperature [K]
 
- * sigmat = tangential momentum accommodation coefficient [unitless] (ONLY USED IN CLL) 
+ * sigmat = tangential momentum accommodation coefficient [unitless] (ONLY USED IN CLL)
 
- * alphan = normal energy accommodation coefficient [unitless] (ONLY USED IN CLL) 
+ * alphan = normal energy accommodation coefficient [unitless] (ONLY USED IN CLL)
 
- * alpha = energy accommodation coefficient (ONLY USED IN DRIA) 
+ * alpha = energy accommodation coefficient (ONLY USED IN DRIA)
 
- * epsilon = fraction of particles specularly reflected (ONLY USED IN MAXWELL'S MODEL) 
+ * epsilon = fraction of particles specularly reflected (ONLY USED IN MAXWELL'S MODEL)
 
- * X = species mole fractions list in order [O, O2, N, N2, He, H] 
+ * X = species mole fractions list in order [O, O2, N, N2, He, H]
 
- * f = directory path for the mesh file to be used e.g "./Mesh Files/sphere_res05_ascii.stl" 
+ * f = directory path for the mesh file to be used e.g "./Mesh Files/sphere_res05_ascii.stl"
 
-OUTPUT 
+OUTPUT
 ------
 
- *  Cd = Drag Coefficient [unitless] 
+ *  Cd = Drag Coefficient [unitless]
 
 
 HOW TO COMPILE
@@ -40,7 +40,7 @@ HOW TO COMPILE
 
 These are the instructions to compile tpm assuming that your current working directory is the place where this README is located.
 
-1. Create a folder for compilation, it is not mandatory, but it is a good practice to separate the compiled code from the sources.
+1. Create a folder for compilation, it is not mandatory, but it is a good practice to separate the compiled code from the sources:
 
 	$> mkdir build
 	$> cd build
@@ -52,8 +52,8 @@ These are the instructions to compile tpm assuming that your current working dir
 The configure will figure out the right values for HDF5 and GSL libraries, otherwise you can also explicictly insert those like this:
 
 	$> CC=mpiicc LIBS="-lhdf5 -lm -lgsl -lgslcblas" ../configure
-	
-3. Execute make to build the code
+
+3. Execute make to build the code:
 
 	$> make
 
