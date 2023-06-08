@@ -42,29 +42,40 @@ These are the instructions to compile tpm assuming that your current working dir
 
 1. Create a folder for compilation, it is not mandatory, but it is a good practice to separate the compiled code from the sources:
 
-	$> mkdir build
-	$> cd build
+```
+$> mkdir build
+$> cd build
+```
 
 2. Execute the configure with appropiated flags, the code needs HDF5 and GSL, this could be one example:
 
-	$> CC=mpiicc ../configure
+```
+$> CC=mpiicc ../configure
+```
 
 The configure will figure out the right values for HDF5 and GSL libraries, otherwise you can also explicictly insert those like this:
 
-	$> CC=mpiicc LIBS="-lhdf5 -lm -lgsl -lgslcblas" ../configure
+```
+$> CC=mpiicc LIBS="-lhdf5 -lm -lgsl -lgslcblas" ../configure
+```
 
 3. Execute make to build the code:
 
-	$> make
+```
+$> make
+```
 
 4. After compilation the executable will be located at: build/src with the name "tpm"
 
 
 You can use the binary directly or you can install it. For installing the code you can decide a good place for installation with:
 
-	$> CC=mpiicc LIBS="-lhdf5 -lm -lgsl -lgslcblas" ../configure --prefix=$HOME/.local
+```
+$> CC=mpiicc LIBS="-lhdf5 -lm -lgsl -lgslcblas" ../configure --prefix=$HOME/.local
+```
 
 and after make, install the code with:
 
-	$> make install
-
+```
+$> make install
+```
