@@ -1,0 +1,90 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Ignore Autotools generated files
+*/__pycache__/
+*Makefile.in
+RSM_TPMC/tpm/aclocal.m4
+RSM_TPMC/tpm/autom4te.cache
+RSM_TPMC/tpm/compile
+RSM_TPMC/tpm/config.h.in
+RSM_TPMC/tpm/configure
+RSM_TPMC/tpm/depcomp
+RSM_TPMC/tpm/install-sh
+RSM_TPMC/tpm/missing
+RSM_TPMC/tpm/test-driver
+RSM_TPMC/tpm/Makefile
+RSM_TPMC/tpm/config.h
+RSM_TPMC/tpm/config.h.in~
+RSM_TPMC/tpm/config.log
+RSM_TPMC/tpm/config.status
+RSM_TPMC/tpm/src/.deps/
+RSM_TPMC/tpm/src/Makefile
+RSM_TPMC/tpm/src/tpm
+RSM_TPMC/tpm/stamp-h1
+RSM_TPMC/tpm/tests/Makefile
+RSM_TPMC/tpm/tests/test-suite.log
+RSM_TPMC/tpm/tests/tpm_test.sh.log
+RSM_TPMC/tpm/tests/tpm_test.sh.trs
+RSM_TPMC/tpm/config.guess
+RSM_TPMC/tpm/config.sub
+RSM_TPMC/tpm/libtool
+RSM_TPMC/tpm/ltmain.sh
+RSM_TPMC/tpm/m4/libtool.m4
+RSM_TPMC/tpm/m4/ltoptions.m4
+RSM_TPMC/tpm/m4/ltsugar.m4
+RSM_TPMC/tpm/m4/ltversion.m4
+RSM_TPMC/tpm/m4/lt~obsolete.m4
+RSM_TPMC/tpm/test.c
+RSM_TPMC/tpm/test_mpich.c
+*.DS_Store
