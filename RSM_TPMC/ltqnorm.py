@@ -1,4 +1,7 @@
+#GAF: 2023
+
 import numpy
+
 def ltqnorm( p ):
     """
     Modified from the author's original perl code (original comments follow below)
@@ -24,7 +27,7 @@ def ltqnorm( p ):
     if numpy.any(p <= 0) or numpy.any(p >= 1):
         # The original perl code exits here, we'll throw an exception instead
         raise ValueError( "Argument to ltqnorm must be in open interval (0,1)" )
-        # print "Argument to ltqnorm must be in open interval (0,1)" 
+        # print "Argument to ltqnorm must be in open interval (0,1)"
 
     # Coefficients in rational approximations.
     a = (-3.969683028665376e+01,  2.209460984245205e+02, \

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#GAF: 2023
+
 import math
 import os
 import sys

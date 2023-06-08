@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+#GAF: 2023
+
 import numpy as np
 import os
 import math
 import json
-import logging 
+import logging
 
 def CWT(meshdir,filename):       #Function created by Logan Sheridan at WVU
 
@@ -119,7 +121,7 @@ def rotate_stl(base_folder):
     h = np.subtract(hp2,hp1)
 
     for defl in range(len(deflec)):  ## top most for loop
-        logging.debug("Deflection No: %d", defl)   
+        logging.debug("Deflection No: %d", defl)
         ### Deflection for each Parent Name  ###
         for plcv in range(len(parentnames)):
             logging.debug("Parent Name No: %d", plcv)

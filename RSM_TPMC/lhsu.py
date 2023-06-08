@@ -7,6 +7,7 @@
 # Output:
 #   s       : random sample (nsample,nvar)
 #   Budiman (2003)
+# GAF: 2023
 
 # libraries
 import numpy
