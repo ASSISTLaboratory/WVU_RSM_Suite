@@ -2,9 +2,10 @@
 
 """
 Code to calculate Projected area given n-dimensions
+GAF: 2023
 """
 import numpy as np
-import os 
+import os
 from scipy.interpolate import  NearestNDInterpolator
 
 
@@ -21,7 +22,7 @@ def area(base_folder):
     Projected Area
 
     """
-    #Read in information from area files 
+    #Read in information from area files
     values=[]
     areafile = (base_folder+os.sep+"Outputs/Projected_Area/Area_Total.dat")
     fcount = open(areafile,'r')
@@ -30,11 +31,11 @@ def area(base_folder):
         if i != "\n":
             line_count += 1
     fcount.close()
-    
+
     f = open(areafile,'r')
     j=0
-    for line in f: 
-        
+    for line in f:
+
         data = line.split()
         floats = []
         for elem in data:
@@ -49,38 +50,38 @@ def area(base_folder):
         j+= 1
 
     f.close()
-     
+
 
     points = values[:,1:]
     areavalues = np.array(values[:,0])
-   
-    
+
+
     # Read Inputs from csv
     csvfile = (base_folder+os.sep+"Inputs/Model_Evaluation_Inputs/Model_Input_Data.csv")
     inp = np.loadtxt(csvfile,delimiter=',',skiprows=1)
-    
+
 
     yawreq = np.reshape(inp[:,3],(len(inp),1))
     pitchreq = np.reshape(inp[:,4],(len(inp),1))
     rotreq = inp[:,12:]
     request = np.hstack((yawreq,pitchreq,rotreq))
-    
-    #Create model and evaluate 
+
+    #Create model and evaluate
     interp=NearestNDInterpolator(points, areavalues)
-    
+
     project_area = interp(request)
     print(project_area)
-                       
 
 
 
 
-    
-    
- 
-    
+
+
+
+
+
 if __name__ == "__main__":
-    
+
     area('.')
-    
-    
+
+
