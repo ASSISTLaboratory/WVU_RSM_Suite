@@ -1,0 +1,56 @@
+Bootstrap: docker
+From: ubuntu:focal
+
+%help
+RSM+TPM Ubuntu Focal
+
+%files
+RSM+TPM_Ubuntu_focal.def
+
+%environment
+SHELL=/bin/bash
+export SHELL
+
+%labels
+AUTHOR gufranco@mail.wvu.edu
+
+%post
+export DEBIAN_FRONTEND=noninteractive
+touch /etc/localtime
+apt-get -y update && apt-get -y upgrade && apt-get -y install apt-utils locales dialog && \
+locale-gen en_US.UTF-8 && \
+update-locale
+
+ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
+apt-get install -y tzdata && \
+dpkg-reconfigure --frontend noninteractive tzdata
+
+apt-get -y upgrade && \
+apt-get -y install wget vim less build-essential git autoconf libgsl-dev libhdf5-dev libmpich-dev \
+python3 python3-numpy python3-matplotlib python3-pandas python3-sklearn python3-pip && \
+apt-get -y autoclean
+
+python3 -m pip install h5py
+
+cd /opt && \
+git clone https://github.com/ASSISTLaboratory/WVU_RSM_Suite.git && \
+cd WVU_RSM_Suite/RSM_TPMC/tpm && \
+./autogen.sh && \
+./configure --enable-mpi && \
+make && make check && \
+cd .. && \
+./rsm_run_script.py --mpiexec=mpiexec --tpm=tpm/src/tpm --help
+
+echo "Sorting some env variables..."
+echo 'LANGUAGE="en_US:en"' >> $SINGULARITY_ENVIRONMENT
+echo 'LC_ALL="en_US.UTF-8"' >> $SINGULARITY_ENVIRONMENT
+echo 'LC_CTYPE="UTF-8"' >> $SINGULARITY_ENVIRONMENT
+echo 'LANG="en_US.UTF-8"' >>  $SINGULARITY_ENVIRONMENT
+
+mkdir /gpfs20
+mkdir /gpfs21
+mkdir /users
+mkdir /group
+mkdir /scratch
+touch /usr/bin/nvidia-smi
+

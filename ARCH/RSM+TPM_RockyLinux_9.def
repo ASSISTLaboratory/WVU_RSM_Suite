@@ -1,0 +1,51 @@
+Bootstrap: docker
+From: rockylinux:9
+
+%help
+RSM+TPM RockyLinux 9
+
+%files
+RSM+TPM_RockyLinux_9.def
+
+%environment
+SHELL=/bin/bash
+export SHELL
+PATH=$PATH:/usr/lib64/openmpi/bin
+export PATH
+
+%labels
+AUTHOR gufranco@mail.wvu.edu
+
+%post
+export LANGUAGE=C
+export LC_ALL=C
+export PATH=$PATH:/usr/lib64/openmpi/bin
+
+dnf update -y
+dnf install -y epel-release
+dnf install -y git autoconf automake gcc mpich-devel openmpi-devel hdf5-devel gsl-devel python3-pip
+
+python3 -m pip install numpy h5py matplotlib pandas scikit-learn
+
+cd /opt && \
+git clone https://github.com/ASSISTLaboratory/WVU_RSM_Suite.git && \
+cd WVU_RSM_Suite/RSM_TPMC/tpm && \
+./autogen.sh && \
+./configure --enable-mpi && \
+make && make check && \
+cd .. && \
+./rsm_run_script.py --mpiexec=mpiexec --tpm=tpm/src/tpm --help
+
+echo "Sorting some env variables..."
+echo 'LANGUAGE="en_US:en"' >> $SINGULARITY_ENVIRONMENT
+echo 'LC_ALL="en_US.UTF-8"' >> $SINGULARITY_ENVIRONMENT
+echo 'LC_CTYPE="UTF-8"' >> $SINGULARITY_ENVIRONMENT
+echo 'LANG="en_US.UTF-8"' >>  $SINGULARITY_ENVIRONMENT
+
+mkdir /gpfs20
+mkdir /gpfs21
+mkdir /users
+mkdir /group
+mkdir /scratch
+touch /usr/bin/nvidia-smi
+
