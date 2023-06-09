@@ -47,7 +47,7 @@ int rank;
 MPI_Comm io_comm;
 #endif /* HAVE_MPI */
 
-
+void chdir(char *);
 
 int main(int argc, char *argv[]) {
 
@@ -84,14 +84,15 @@ int main(int argc, char *argv[]) {
 
     double Cd;
     char outfilename[1024];
-    char areaoutfilename[2048];
     char filename[1024];
     char objname[1024];
     //GAF:UNUSED char deflection[1024];
     //GAF:UNUSED char tempdeflection[1024];
-    char areafilename[1024];
+    char areafilename[2048];
 
 #if HAVE_MPI
+    char areaoutfilename[2048];
+
     /************* Set up number of 0 to use before processor number ****************/
     char *zeros = "p";
     if (nProcs > 9) {
@@ -107,8 +108,8 @@ int main(int argc, char *argv[]) {
 #endif /*HAVE_MPI*/
 
 
-    char line[1024];
 #if HAVE_MPI
+    char line[1024];
     sprintf(outfilename, "tempfiles/Cdout_%s%d.dat", zeros, rank);
 #else /* HAVE_MPI */
     sprintf(outfilename, "tempfiles/Cdout.dat");
@@ -142,7 +143,7 @@ int main(int argc, char *argv[]) {
 #if HAVE_MPI
     int ppN; // Particles per processor
 #else
-    int pc;
+    int pc;  // Percentage Complete
 #endif /* HAVE_MPI */
 
     int iTOT;
@@ -372,7 +373,8 @@ int main(int argc, char *argv[]) {
   }
 #else /* HAVE_MPI */
 
-  FILE *farea;
+  FILE *farea = fopen(areafilename, "w");
+  sprintf(areafilename, "Outputs/Area_Regression_Models/area_%s.dat", objname);  
   //printf("Loop on NUM_POINTS\n");
   sprintf(filename,"%s",objname);
   for(i=0; i<NUM_POINTS; i++) {    // Parallel Loop
@@ -380,7 +382,10 @@ int main(int argc, char *argv[]) {
 
     Cd = testparticle(filename, LHS_Umag[i], LHS_theta[i], LHS_phi[i], LHS_Ts[i], LHS_Ta[i], LHS_Ep[i], \
 		      LHS_Al[i], LHS_An[i], LHS_St[i], X, GSI_MODEL, iTOT, &area);
+ 
     pc = 100*i/NUM_POINTS; //percentage complete
+    if (pc%10 == 0) printf("Percentage Complete: %d\n", pc);
+
     //printf("Cd = %e\n", Cd);
 
 
@@ -615,7 +620,8 @@ double testparticle(char filename[1024], double Umag, double theta, double phi, 
   double Usurf[3] = {Ux, Uy, Uz};
   double Ubulk[NSURF] = {Ux, -Ux, Uy, -Uy, Uz, -Uz};
   int direction[NSURF] = {1, -1, 1, -1, 1, -1};
-  double sp_flux[NSURF];
+  //double sp_flux[NSURF];
+
   double tot_flux = 0.0;
 
 /* INITIALIZE TOTAL FORCE ON OBJECT */
@@ -706,9 +712,11 @@ double testparticle(char filename[1024], double Umag, double theta, double phi, 
     cumul_dist[k] = 0.0;
   }
 
+/*
   for(j=0; j<NSPECIES; j++) {
     sp_flux[j] = 0.0;
   }
+*/
 
   /* COMPUTE SPEED RATIO, SURFACE FLUX, AND TOTAL FLUX */
   for(i=0; i<NSURF; i++) {
@@ -895,7 +903,7 @@ int read_num_lines(char filename[1024])
 
   printf("read_num_lines: %s\n",filename);
 
-  void chdir();
+  chdir(".");
   chdir("tempfiles/Mesh_Files");  // Get the STL file
   FILE *f = fopen(filename, "r");
   if(f == NULL)
@@ -939,7 +947,7 @@ void facet_properties(char filename[1024], double Ux, double Uy, double Uz, int 
   /*         Vertex1 [x, y, z] */
   /*         Vertex2 [x, y, z] */
   /*         Vertex3 [z, y, z] */
-  void chdir();
+  chdir(".");
   chdir("tempfiles/Mesh_Files"); // Get the STL file
   FILE *f = fopen(filename, "r");
   if(f == NULL)
@@ -1590,7 +1598,7 @@ void sort_facets(struct facet_struct *pfacet, struct cell_struct *pcell, int nfa
   int ifacet;
   //int counter;
   int cell_number;
-  int total_counter = 0;
+  //int total_counter = 0;
   //GAF: UNUSED int sum = 0;
   int *facet_af = NULL;
   int *facet_overlaps = NULL;
@@ -1673,7 +1681,7 @@ void sort_facets(struct facet_struct *pfacet, struct cell_struct *pcell, int nfa
 		facet_ijk[ifacet][0][1] = j;
 		facet_ijk[ifacet][0][2] = k;
 		cellcounter[i][j][k]++;
-		total_counter++;
+		//total_counter++;
 		facet_af[ifacet]++;
 		if(cellcounter[i][j][k]>=MAXFACETS) {
 		  printf("MAXFACETS is too low! Increase its value!\n");
@@ -1692,7 +1700,7 @@ void sort_facets(struct facet_struct *pfacet, struct cell_struct *pcell, int nfa
 		facet_ijk[ifacet][1][1] = j;
 		facet_ijk[ifacet][1][2] = k;
 		cellcounter[i][j][k]++;
-		total_counter++;
+		//total_counter++;
 		facet_af[ifacet]++;
 		if(cellcounter[i][j][k]>=MAXFACETS) {
 		  printf("MAXFACETS is too low! Increase its value!\n");
@@ -1711,7 +1719,7 @@ void sort_facets(struct facet_struct *pfacet, struct cell_struct *pcell, int nfa
 		facet_ijk[ifacet][2][1] = j;
 		facet_ijk[ifacet][2][2] = k;
 		cellcounter[i][j][k]++;
-		total_counter++;
+		//total_counter++;
 		facet_af[ifacet]++;
 		if(cellcounter[i][j][k]>=MAXFACETS) {
 		  printf("MAXFACETS is too low! Increase its value!\n");
@@ -1743,7 +1751,7 @@ void sort_facets(struct facet_struct *pfacet, struct cell_struct *pcell, int nfa
 	} else {
 	  vindx = 0;
 	}
-	ijkdiff[i][j] = abs(facet_ijk[ifacet][i][j] - facet_ijk[ifacet][vindx][j]);
+	ijkdiff[i][j] = (int) fabs(facet_ijk[ifacet][i][j] - facet_ijk[ifacet][vindx][j]);
 	if(ijkdiff[i][j] > 0) {
 	  ijkcounter++;
 	}
@@ -1822,7 +1830,7 @@ void sort_facets(struct facet_struct *pfacet, struct cell_struct *pcell, int nfa
 		    if(dupflag==0) {
 		      cell->facet_list[(int)cellcounter[i][j][k]] = ifacet;
 		      cellcounter[i][j][k]++;
-		      total_counter++;
+		      //total_counter++;
 		      facet_af[ifacet]++;
 		      //oflag = 1;
 		      if(cellcounter[i][j][k]>=MAXFACETS) {
@@ -2212,7 +2220,7 @@ void compile_facet_list(struct facet_struct *pfacet, int nfacets, struct cell_st
     // DEBUGGER MENTION ERROR with while(cell->facet_list[ipf] >=0) {
     //
     //
-    if (cell->facet_list)
+    if (sizeof(cell->facet_list)>0)
     {
     //printf("cell->facet_list[0]=%d\n", cell->facet_list[0]);
     // Proceed

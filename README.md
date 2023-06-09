@@ -1,25 +1,5 @@
 # Response Surface Model + Test Particle Model (RSM+TPM)
 
-## Test Particle Model
-
-The Test Particle Model (TPM) is written in C and uses MPI and some extra libraries.
-
-To compile TPM several packages are needed:
-
-  * C compiler
-  * GSL libraries
-  * HDF5 libraries (Serial version is enough)
-  * MPI implementation and libraries
-  * Autoconf needed if installing from the Github repository
-  * Git to clone the repository
-
-To install these dependencies you can use the packages provided by your Linux distribution
-For example on Ubuntu focal the dependencies above can be satisfied executing the command:
-
-```
-sudo apt-get install build-essential git autoconf libgsl-dev libhdf5-dev libmpich-dev
-```
-
 ## Response Surface Model
 
 The Response Surface Model (RSM) is written in Python and uses this Python packages:
@@ -50,42 +30,12 @@ sudo python3 -m pip install h5py
 Clone the repository from Github using the git command:
 
 ```
-git clone https://github.com/WVUResearchComputing/RSM_TPMC.git
-```
-
-or
-
-```
 git clone https://github.com/ASSISTLaboratory/WVU_RSM_Suite.git
 ```
 
-## Compile TPM
+## Compiling TPM
 
-Go to the folder `TSM_TPMC/tpm` and prepare the sources for compilation:
-
-```
-cd TSM_TPMC/tpm
-./autogen.sh
-```
-
-Execute the script `./configure`. One important option is to enable MPI so the code can work on multiple CPU cores or even distributed across multiple compute nodes.
-
-```
-./configure --enable-mpi
-```
-
-Other options availble include adding debugging and/or profiling flags. Enabling this features is useful for developers but will create a slower executable
-
-```
-./configure --enable-mpi --enable-debug --enable-gprof
-```
-
-If everything is correct at this point, the configure will have detected the location for GSL, HDF5 and the proper way of adding MPI support to the code.
-Compile the code with:
-
-```
-make
-```
+See the file `RSM_TPMC/tpm/README.md` for instructions on how to compile tpm before using RSM  
 
 ## Execute RSM
 
@@ -97,61 +47,60 @@ The values for default are equivalent to use this command:
 ./rsm_run_script.py --mpiexec=mpiexec --tpm=tpm/src/tpm
 ```
 
+# Running RSM+TPMC on an HPC Cluster
 
-# RSM+TPM on a Singularity container
+The main development of RSM+TPMC is done on a HPC cluster at West Virginia University.
+The cluster is called Thorny Flat.
 
-The following recipe can be use to create a Singularity image for RSM+TPM.
-Create a Singularity definition file such as `RSM+TPM.def` with the following contents:
+The folder `ARCH` contains scripts to load the correspoding modules and definition files for conteinarize the code using Singularity.
+
+## Loading Environment Modules
+
+The script `load_modules_Thorny_Flat.sh` load a selection of modules used for development and testing of the code.
+To activate the modules in the current shell session the script must be source, otherwise the modules will not be loaded in the current shell.
 
 ```
-Bootstrap: docker
-From: ubuntu:focal
+$> source ./ARCH/load_modules_Thorny_Flat.sh 
 
-%files
-RSM+TPM.def
+Missing argument for choosing the compiler to be used.
+Select one of the following options:
 
-%environment
-SHELL=/bin/bash
-export SHELL
-
-%post
-export DEBIAN_FRONTEND=noninteractive
-touch /etc/localtime
-apt-get -y update && apt-get -y upgrade && apt-get -y install apt-utils locales dialog && \
-locale-gen en_US.UTF-8 && \
-update-locale
-
-ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime && \
-apt-get install -y tzdata && \
-dpkg-reconfigure --frontend noninteractive tzdata
-
-apt-get -y upgrade && \
-apt-get -y install wget vim less build-essential git autoconf libgsl-dev libhdf5-dev libmpich-dev \
-python3 python3-numpy python3-matplotlib python3-pandas python3-sklearn python3-pip && \
-apt-get -y autoclean
-
-python3 -m pip install h5py
-
-cd /opt && \
-git clone https://github.com/WVUResearchComputing/RSM_TPM.git && \
-cd RSM_TPM/tpm && \
-./autogen.sh && \
-./configure --enable-mpi && \
-make && \
-cd .. && \
-./rsm_run_script.py --mpiexec=mpiexec --tpm=tpm/src/tpm --help
-
-echo "Sorting some env variables..."
-echo 'LANGUAGE="en_US:en"' >> $SINGULARITY_ENVIRONMENT
-echo 'LC_ALL="en_US.UTF-8"' >> $SINGULARITY_ENVIRONMENT
-echo 'LC_CTYPE="UTF-8"' >> $SINGULARITY_ENVIRONMENT
-echo 'LANG="en_US.UTF-8"' >>  $SINGULARITY_ENVIRONMENT
+ * intel22 : Intel Compilers and Intel MPI
+ * gcc93   : GCC Compilers 9.3 and OpenMPI 4.1.4
+ * gcc122  : GCC Compilers 12.2 and OpenMPI 4.1.5
+ * nvhpc   : NVIDIA HPC 23.3 and OpenMPI 3.1.5
 ```
+
+For example, if you want to use RSM+TPMC with the GCC 12.2 compiler, execute:
+
+```
+$> source ./ARCH/load_modules_Thorny_Flat.sh gcc122
+```
+
+This will load the following modules
+
+```
+Loading gcc version 12.2.0 : lang/gcc/12.2.0
+Loading hdf5 version 1.14.0_gcc122 : libs/hdf5/1.14.0_gcc122
+Loading python version cpython_3.11.3_gcc122 : lang/python/cpython_3.11.3_gcc122
+Loading gcc version 12.2.0 : lang/gcc/12.2.0
+Loading openmpi version 4.1.5_gcc122 : parallel/openmpi/4.1.5_gcc122
+```
+
+This modules will provide all the libraries, compilers and Python installed with the necessary packages for running the code.
+
+## Singularity containers
+
+On the folder ARCH there are 3 examples of Singularity definition files used to create containers for RSM+TPM
+
+
+ * `RSM+TPM_RockyLinux_9.def`   
+ * `RSM+TPM_Ubuntu_focal.def`  
+ * `RSM+TPM_Ubuntu_jammy.def`
 
 To create the singularity image install Singularity on your Linux machine and as superuser execute the following command:
 
 ```
-singularity build RSM+TPM.sif RSM+TPM.def
+singularity build RSM+TPM_RockyLinux_9.sif RSM+TPM_RockyLinux_9.def
 ```
-
 
