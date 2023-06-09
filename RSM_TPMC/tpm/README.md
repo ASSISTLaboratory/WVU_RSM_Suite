@@ -1,10 +1,8 @@
-TEST PARTICLE MODEL
-===================
+# TEST PARTICLE MODEL
 
 Calculates the drag coefficient of a given object (from a .stl mesh file) using the test particle method
 
-INPUT
------
+## INPUT
 
  * GS_MODEL: Specifies gas-surface interaction model
  	0 = Maxwell's Model
@@ -29,13 +27,11 @@ INPUT
 
  * f = directory path for the mesh file to be used e.g "./Mesh Files/sphere_res05_ascii.stl"
 
-OUTPUT
-------
+## OUTPUT
 
  *  Cd = Drag Coefficient [unitless]
 
-PREREQUISITES
--------------
+## PREREQUISITES
  
 The Test Particle Model (TPM) is written in C and uses MPI and some extra libraries. 
  
@@ -62,8 +58,7 @@ On RedHat systems (RHEL) including derivatives such as RockyLinux, CentOS, Fedor
 $> sudo dnf install autoconf automake gcc mpich-devel openmpi-devel hdf5-devel gsl-devel 
 ```
 
-Checking for GSL
-~~~~~~~~~~~~~~~~
+### Checking for GSL
 
 You can check for the presence of GSL executing this command:
 
@@ -77,8 +72,7 @@ You should get the location of the libraries and linking flags. For example:
 -L/shared/software/lang/gcc/9.3.0/lib -lgsl -lgslcblas -lm
 ```
 
-Checking for HDF5
-~~~~~~~~~~~~~~~~~
+### Checking for HDF5
 
 Checking for the availability of HDF5 can be done indirectly by looking at the compiler wrappers
 
@@ -90,8 +84,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
-Checking for MPI
-~~~~~~~~~~~~~~~~
+### Checking for MPI
 
 There are several implementations of MPI. The most popular are OpenMPI, MPICH, MVAPICH and Intel MPI (A derivative from MPICH).
 Several implementations can be installed on a system. 
@@ -109,8 +102,7 @@ During runtime, the execution is usually managed by the commands `mpirun` or `mp
 It is very important to use during runtime, the same implementation that was used for compilation.
 
 
-COMPILATION
------------
+## COMPILATION
 
 Go to the folder `WVU_RSM_Suite/RSM_TPMC/tpm`.
 This is the folder where this README.md is located:
