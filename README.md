@@ -2,7 +2,7 @@
 
 ## Response Surface Model
 
-The Response Surface Model (RSM) is written in Python and uses this Python packages:
+The Response Surface Model (RSM) is written in Python and uses these Python packages:
 
   * Python version 3+ (Tested on Python 3.8+)
   * Numpy
@@ -12,18 +12,20 @@ The Response Surface Model (RSM) is written in Python and uses this Python packa
   * h5py
 
 You can install these dependencies using the packages on the Linux distribution.
-On Ubuntu focal you can install most dependencies executing the command:
+On Ubuntu 22.04.2 LTS (Jammy Jellyfish) you can install most dependencies by executing the command:
 
 ```
 sudo apt-get install python3 python3-numpy python3-matplotlib python3-pandas python3-sklearn python3-pip
 ```
 
-An exception  here is h5py. The package provided by Ubuntu depends on OpenMPI.
+An exception here is h5py. The package provided by Ubuntu depends on OpenMPI.
 To install the serial version use pip:
 
 ```
 sudo python3 -m pip install h5py
 ```
+
+The same packages can be used in the case of Ubuntu 20.04.6 LTS (Focal Fossa)
 
 ## Cloning the repository
 
@@ -40,8 +42,8 @@ See the file `RSM_TPMC/tpm/README.md` for instructions on how to compile tpm bef
 ## Execute RSM
 
 The main script for RSM is `rsm_run_script.py`.
-You can execute this script with two options `--mpiexec` and `--tpm`. This options will select which will be the MPI execution command and the location of the tpm executable.
-The values for default are equivalent to use this command:
+You can execute this script with two options `--mpiexec` and `--tpm`. These options will select which will be the MPI execution command and the location of the tpm executable.
+The values for default are equivalent to using this command:
 
 ```
 ./rsm_run_script.py --mpiexec=mpiexec --tpm=tpm/src/tpm
@@ -52,12 +54,12 @@ The values for default are equivalent to use this command:
 The main development of RSM+TPMC is done on a HPC cluster at West Virginia University.
 The cluster is called Thorny Flat.
 
-The folder `ARCH` contains scripts to load the correspoding modules and definition files for conteinarize the code using Singularity.
+The folder `ARCH` contains scripts to load the corresponding modules and definition files for conteinarize the code using Singularity.
 
 ## Loading Environment Modules
 
-The script `load_modules_Thorny_Flat.sh` load a selection of modules used for development and testing of the code.
-To activate the modules in the current shell session the script must be source, otherwise the modules will not be loaded in the current shell.
+The script `load_modules_Thorny_Flat.sh` load a selection of modules used for the development and testing of the code.
+To activate the modules in the current shell session the script must be the source, otherwise, the modules will not be loaded in the current shell.
 
 ```
 $> source ./ARCH/load_modules_Thorny_Flat.sh 
@@ -87,7 +89,7 @@ Loading gcc version 12.2.0 : lang/gcc/12.2.0
 Loading openmpi version 4.1.5_gcc122 : parallel/openmpi/4.1.5_gcc122
 ```
 
-This modules will provide all the libraries, compilers and Python installed with the necessary packages for running the code.
+These modules will provide all the libraries, compilers, and Python installed with the necessary packages for running the code.
 
 ## Singularity containers
 
@@ -98,7 +100,7 @@ On the folder ARCH there are 3 examples of Singularity definition files used to 
  * `RSM+TPM_Ubuntu_focal.def`  
  * `RSM+TPM_Ubuntu_jammy.def`
 
-To create the singularity image install Singularity on your Linux machine and as superuser execute the following command:
+To create the singularity image install Singularity on your Linux machine and as a superuser execute the following command:
 
 ```
 singularity build RSM+TPM_RockyLinux_9.sif RSM+TPM_RockyLinux_9.def

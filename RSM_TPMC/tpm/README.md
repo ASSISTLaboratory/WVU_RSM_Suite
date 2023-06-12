@@ -99,7 +99,7 @@ Copyright (c) 2022, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 ```
 
 During runtime, the execution is usually managed by the commands `mpirun` or `mpiexec`
-It is very important to use during runtime, the same implementation that was used for compilation.
+It is very important to use the same implementation used for compilation during runtime.
 
 
 ## COMPILATION
@@ -111,8 +111,8 @@ This is the folder where this README.md is located:
 cd WVU_RSM_Suite/RSM_TPMC/tpm
 ```
 
-If your clone the repository from Github, the script configure is still not created.
-Create the configure using the script `autogen.sh`
+If you clone the repository from Github, the script `configure` is still not created.
+Create the script `configure` using the script `autogen.sh`
 
 ```
 $> ./autogen.sh
@@ -175,7 +175,7 @@ Enabling MPI and using the Intel MPI on top of Intel Compilers
 $> CC=icc MPICC=mpiicc ./configure --enable-mpi
 ```
 
-The configure will figure out the right values for HDF5 and GSL libraries, otherwise you can also explicictly insert those like this:
+The scrip `configure` will figure out the right values for HDF5 and GSL libraries, otherwise you can also explicitly insert those like this:
 
 ```
 $> CC=mpiicc LIBS="-lhdf5 -lm -lgsl -lgslcblas" ./configure
@@ -187,7 +187,7 @@ Execute make to build the code:
 $> make
 ```
 
-After compilation the executable will be located  with sources at `src` with the name `tpm`
+After compilation, the executable will be located  with sources at `src` with the name `tpm`
 
 You can use the binary from that location or you can install it. 
 For installing the code you can decide a good place for installation with:
@@ -196,7 +196,7 @@ For installing the code you can decide a good place for installation with:
 $> ./configure --prefix=$HOME/.local
 ```
 
-and after make, install the code with:
+and after `make`, install the code with:
 
 ```
 $> make install
